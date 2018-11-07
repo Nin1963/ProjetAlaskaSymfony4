@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formChapter 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <div class='jumbotron'>
+        <strong><h1>{{ chapter.title }}</h1></strong>
+        <div class="date">
+        <em>Ecrit le {{ chapter.createdAt | date('d/m/Y') }} à {{ chapter.createdAt | date('H:i') }}</em>
+        </div>
+        <br>
+        <div class="content">
+            <p>{{chapter.content | raw }}
+        </div>
+    </div>
+    {% for message in app.flashes('notice') %}
+        <div class="container alert alert-success" role="alert">{{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    <div class="jumbotron">
+        <strong><h2>Commentaires ({{ chapter.comments | length }})</h2></strong>
+        {% for comment in chapter.comments %}
+        {{ comment.author}} (<small>{{ comment.createdAt | date('d/m/y à H:i') }}</small>)
+        <p>{{ comment.content | raw }}</p>
+        {% endfor %}
+    </div>
+    <div class="jumbotron">
+        <h1>Modifier le chapitre</h1>
+        {{ form_start(formChapter) }}
+        {{ form_row(formChapter.title) }}
+        {{ form_row(formChapter.content) }}
+        
+        <button type="submit">Mofifier le chapitre</button> ou <button type="submit">Supprimer le chapitre</button>
+        {{ form_end(formChapter) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset ('tiny_mce/tiny_mce.js') }}"></script>
+    <script>
+        tinymce.init({
+        selector: 'textarea',
+        });
+    </script>
+{% endblock %}

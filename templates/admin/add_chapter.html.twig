@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formChapter 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>Ajouter un chapitre</h1>
+            {{ form_start(formChapter) }}
+            {{ form_row(formChapter.title) }}
+            {{ form_row(formChapter.content) }}
+                <button type="submit" class="btn btn-primary">Ajouter le nouveau chapitre</button>
+            {{ form_end(formChapter) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset ('tiny_mce/tiny_mce.js') }}"></script>
+<script>
+    tinymce.init({
+      selector: 'textarea',
+    });
+</script>
+{% endblock %}

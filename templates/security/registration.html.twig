@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>Inscription</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.username, {'label':'Nom d\'utilisateur'}) }}
+        {{ form_row(form.password, {'label':'Mot de passe'}) }}
+        <button type="submit" class="btn btn-primary">Inscription</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
